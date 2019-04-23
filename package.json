@@ -1,0 +1,42 @@
+{
+  "name": "vmx-apollo-server",
+  "version": "1.0.0",
+  "description": "server backend for vmx client application",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baumzeit/vmx-apollo-server.git"
+  },
+  "keywords": [
+    "apollo",
+    "graphql"
+  ],
+  "author": "Philip Hradecsni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/baumzeit/vmx-apollo-server/issues"
+  },
+  "homepage": "https://github.com/baumzeit/vmx-apollo-server#readme",
+  "dependencies": {
+    "apollo-datasource-rest": "^0.3.2",
+    "apollo-server": "^2.4.8",
+    "apollo-server-testing": "^2.4.8",
+    "disconnect": "^1.2.1",
+    "dotenv": "^7.0.0",
+    "graphql": "^14.2.1",
+    "nodemon": "^1.18.11"
+  },
+  "devDependencies": {
+    "jest": "^24.7.1"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/__utils"
+    ]
+  }
+}
