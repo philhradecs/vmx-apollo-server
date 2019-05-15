@@ -1,5 +1,7 @@
 const { gql } = require('apollo-server');
 
+// graphql-codegen
+
 const typeDefs = gql`
   type Query {
     randomReleases: SearchResult!
@@ -8,53 +10,62 @@ const typeDefs = gql`
       genre: String
       style: String
       country: String
-      year: Int
+      years: [Int]
       artist: String
-    ): SearchResult
-    releaseDetails(releaseID: ID!): ReleaseDetails
-    artistDetails(artistID: ID!): ArtistDetails
+    ): [SearchResult]
   }
   type SearchResult {
     page: Int
     pages: Int
     items: Int
-    results: [Release]
+    results: [Release!]!
   }
   type Release {
     title: String
-    styles: [String]
-    genres: [String]
+    styles: [String!]!
+    genres: [String!]!
     country: String
     year: Int
     url: String
     image: Image
     id: ID!
+    """
+    Watch out for performance bottleneck
+    -> additional API request
+    """
+    details: ReleaseDetails!
   }
   type ReleaseDetails {
     title: String
-    artists: [Artist]
-    styles: [String]
-    genres: [String]
-    imagePrimary: Image
-    imageSecondary: Image
+    artists: [Artist!]!
+    styles: [String!]!
+    genres: [String!]!
+    images: [Image!]!
     country: String
     released: Int
-    tracklist: [Track]
-    videos: [String]
+    tracklist: [Track!]!
+    videos: [String!]!
     id: ID!
   }
   type Artist {
-    name: String
+    name: String!
     id: ID!
+    # """
+    # Watch out for performance bottleneck
+    # -> additional API request
+    # """
+    details: ArtistDetails!
   }
   type ArtistDetails {
+    name: String
+    realname: String
     profile: String
     url: String
-    imagePrimary: Image
-    imageSecondary: Image
+    images: [Image!]!
     id: ID!
   }
   type Image {
+    type: String
     small: String
     full: String
   }

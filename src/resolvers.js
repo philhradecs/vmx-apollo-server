@@ -4,13 +4,32 @@ module.exports = {
       return dataSources.discogsAPI.getRandomReleases();
     },
     searchReleases: async (_, args, { dataSources }) => {
-      return dataSources.discogsAPI.getSearchReleases(args);
-    },
-    releaseDetails: async (_, { releaseID }, { dataSources }) => {
-      return dataSources.discogsAPI.getReleaseDetails({ releaseID });
-    },
-    artistDetails: async (_, { artistID }, { dataSources }) => {
-      return dataSources.discogsAPI.getArtistDetails({ artistID });
+      const searchParams = { ...args };
+      if (!searchParams.hasOwnProperty('years')) {
+        searchParams.years = [''];
+      }
+      const queries = searchParams.years.map(year => {
+        let query = { ...searchParams };
+        delete query.years;
+        query.year = year;
+        return query;
+      });
+
+      return Promise.all(
+        queries.map(query => dataSources.discogsAPI.getSearchReleases(query))
+      );
+    }
+  },
+
+  Release: {
+    details: async (parent, _, { dataSources }) => {
+      return dataSources.discogsAPI.getReleaseDetails({ id: parent.id });
+    }
+  },
+
+  Artist: {
+    details: async (parent, _, { dataSources }) => {
+      return dataSources.discogsAPI.getArtistDetails({ id: parent.id });
     }
   }
 };
