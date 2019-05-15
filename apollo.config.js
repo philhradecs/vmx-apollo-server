@@ -1,5 +1,5 @@
 module.exports = {
   service: {
-    name: 'vhmx'
+    name: 'vmx-server'
   }
 };
