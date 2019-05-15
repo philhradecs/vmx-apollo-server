@@ -15,7 +15,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({ discogsAPI: new DiscogsAPI(discogsClient) }),
-  cors: true
+  engine: { apiKey: process.env.ENGINE_API_KEY }
 });
 
 server.listen().then(({ url }) => {
