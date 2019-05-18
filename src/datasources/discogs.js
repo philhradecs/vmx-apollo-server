@@ -43,8 +43,8 @@ function searchResponseReducer(response) {
 function searchReleaseReducer(release) {
   return {
     title: release.title,
-    styles: release.style,
-    genres: release.genre,
+    styles: release.style || [],
+    genres: release.genre || [],
     country: release.country,
     year: parseInt(release.year, 10),
     url: 'https://www.discogs.com' + release.uri,
@@ -59,11 +59,11 @@ function searchReleaseReducer(release) {
 function releaseDetailsReducer(release) {
   return {
     title: release.title,
-    artists: release.artists.map(artist => {
-      return { name: artist.name, id: artist.id };
-    }),
-    styles: release.styles,
-    genres: release.genres,
+    artists: release.hasOwnProperty('artists')
+      ? release.artists.map(artist => ({ name: artist.name, id: artist.id }))
+      : [],
+    styles: release.styles || [],
+    genres: release.genres || [],
     images: release.hasOwnProperty('images')
       ? release.images.map(image => ({
           type: image.type,
@@ -73,17 +73,15 @@ function releaseDetailsReducer(release) {
       : [],
     country: release.country,
     released: release.released_formatted.match(/\d{4}/)[0],
-    tracklist: release.tracklist.map(track => {
-      return {
-        duration: track.duration,
-        position: track.position,
-        title: track.title
-      };
-    }),
+    tracklist: release.hasOwnProperty('tracklist')
+      ? release.tracklist.map(track => ({
+          duration: track.duration,
+          position: track.position,
+          title: track.title
+        }))
+      : [],
     videos: release.hasOwnProperty('videos')
-      ? release.videos.map(video => {
-          return video.uri;
-        })
+      ? release.videos.map(video => video.uri)
       : [],
     id: release.id
   };
