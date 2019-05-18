@@ -10,7 +10,7 @@ const typeDefs = gql`
       genre: String
       style: String
       country: String
-      years: [Int]
+      years: [String]
       artist: String
     ): [SearchResult]
   }
