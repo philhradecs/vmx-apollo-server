@@ -13,6 +13,8 @@ const typeDefs = gql`
       years: [String]
       artist: String
     ): [SearchResult]
+    releaseDetails(id: ID): ReleaseDetails
+    artistDetails(id: ID): ArtistDetails
   }
   type SearchResult {
     page: Int

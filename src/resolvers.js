@@ -18,6 +18,12 @@ module.exports = {
       return Promise.all(
         queries.map(query => dataSources.discogsAPI.getSearchReleases(query))
       );
+    },
+    releaseDetails: async (_, args, { dataSources }) => {
+      return dataSources.discogsAPI.getReleaseDetails({ id: args.id });
+    },
+    artistDetails: async (_, args, { dataSources }) => {
+      return dataSources.discogsAPI.getArtistDetails({ id: args.id });
     }
   },
 
