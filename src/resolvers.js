@@ -4,20 +4,11 @@ module.exports = {
       return dataSources.discogsAPI.getRandomReleases();
     },
     searchReleases: async (_, args, { dataSources }) => {
-      const searchParams = { ...args };
-      if (!searchParams.hasOwnProperty('years')) {
-        searchParams.years = [''];
-      }
-      const queries = searchParams.years.map(year => {
-        let query = { ...searchParams };
-        delete query.years;
-        query.year = year;
-        return query;
-      });
+      const query = { ...args };
+      query.year = query.years;
+      delete query.years;
 
-      return Promise.all(
-        queries.map(query => dataSources.discogsAPI.getSearchReleases(query))
-      );
+      return dataSources.discogsAPI.getSearchReleases(query);
     },
     releaseDetails: async (_, args, { dataSources }) => {
       return dataSources.discogsAPI.getReleaseDetails({ id: args.id });

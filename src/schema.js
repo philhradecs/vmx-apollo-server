@@ -10,9 +10,9 @@ const typeDefs = gql`
       genre: String
       style: String
       country: String
-      years: [String]
+      years: String
       artist: String
-    ): [SearchResult]
+    ): SearchResult
     releaseDetails(id: ID): ReleaseDetails
     artistDetails(id: ID): ArtistDetails
   }
