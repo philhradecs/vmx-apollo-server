@@ -7,6 +7,7 @@ module.exports = {
       const query = { ...args };
       query.year = query.years;
       delete query.years;
+      query.type = 'master';
 
       return dataSources.discogsAPI.getSearchReleases(query);
     },
