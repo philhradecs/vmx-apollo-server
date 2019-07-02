@@ -1,5 +1,12 @@
 {
   "name": "vmx-server",
   "version": 2,
-  "alias": "vmx"
+  "alias": "vmx",
+  "builds": [{ "src": "index.js", "use": "@now/node" }],
+  "routes": [{ "src": "/.*", "dest": "index.js" }],
+  "env": {
+    "ENGINE_API_KEY": "service:baumzeit-vmx:EJOZB5Vuj31BfpLKBfsEKQ",
+    "DISCOGS_CONSUMER_KEY": "xLciwjNhxHkrizzpaxvl",
+    "DISCOGS_CONSUMER_SECRET": "mXhnOSvIcutFWnbUrlRgwSROELcvKWip"
+  }
 }
